@@ -5,8 +5,13 @@
 #   gem 'sqlite3'
 #
 default: &default
+  #adapter: 使用するデータベースの種類
   adapter: sqlite3
+  #データベースへ接続するときに接続状態を保持して接続の時間を短縮する機能
+  #その接続数
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+  #接続のタイムアウト時間
   timeout: 5000
 
 development:
