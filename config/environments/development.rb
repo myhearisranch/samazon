@@ -58,4 +58,45 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  Rails.application.configure do
+
+    #default url
+
+    #Action MailerのビューでURLを生成する
+    config.action_mailer.default_url_options={
+      protocol: 'https',
+      host: ENV["CLOUD9_APP_ROOT_URL"]
+    }
+
+
+    #mail setting
+
+    #メール配信に失敗した場合にエラーを発生するかどうかを指定します
+    config.action_mailer.raise_delivery_errors = true
+
+    #配信方法を指定します。以下の配信方法を指定可能です
+    config.action_mailer.delivery_method = :smtp
+
+    #:smtpの配信メソッドの詳細設定を行います。
+    config.action_mailer.smtp_settings = {
+
+      #リモートメールサーバーの利用を許可する
+      :address => "smtp.gmail.com",
+
+      #メールサーバーが万一ポート25番で動作していない場合はここで変更する。
+      :port => 587,
+
+      #メールサーバーで認証が必要な場合はここでユーザー名を指定する。
+      :user_name => ENV["GMAIL_ADDRESS"],
+
+      #メールサーバーで認証が必要な場合、ここでパスワードを指定する
+      :password => ENV["GMAIL_2FACTOR_PASSWORD"],
+
+      #メールサーバーで認証が必要な場合はここで認証の種類を指定する。:plain（パスワードを平文で送信）、:login（パスワードをBase64でエンコードする）、:cram_md5（チャレンジ/レスポンスによる情報交換と、MD5アルゴリズムによる重要情報のハッシュ化の組み合わせ）のいずれかのシンボルを指定する。
+      :authentication => :plain,
+
+      #SMTPサーバーでSTARTTLSが有効かどうかを検出して有効にする。デフォルトはtrue。
+      :enable_starttls_auto => true
+    }
+  end
 end
