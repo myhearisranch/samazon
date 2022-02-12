@@ -62,7 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def congigure_sign_up_params
+  def configure_sign_up_params
     devise_parameter_sanitizer.permit(
       :sign_up, keys: [:name, :postal_code, :address, :phone, :email, :password, :password_confirmation])
   end
